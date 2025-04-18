@@ -3,7 +3,7 @@
 DBMS Project:
 
 Overview:
-This project is a simple Database Management System built using Node.js, MySQL, HTML, and CSS. It allows user perform login/ signup actions and fill uo a registration form while having all the entries in the backend.
+This project is a simple Database Management System built using Node.js, MySQL, HTML, and CSS. It allows users to perform login/ signup actions and fill out a registration form while having all the entries in the backend.
 
 Team Members:
 - Rishabh Ahuja (D073)  
@@ -16,5 +16,5 @@ Tech Stack:
 - Database: MySQL  
 
 Content:
-- HTML folder contains all the html files.
-- Views folder contains all the CSS,js and images.
+- The HTML folder contains all the HTML files.
+- The Views folder contains all the CSS, JS, and images.
