@@ -16,5 +16,5 @@ Tech Stack:
 - Database: MySQL  
 
 Content:
-HTML folder contains all the html files.
-Views folder contains all the CSS,js and images.
+- HTML folder contains all the html files.
+- Views folder contains all the CSS,js and images.
