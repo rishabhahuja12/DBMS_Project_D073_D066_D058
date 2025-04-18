@@ -14,3 +14,7 @@ Tech Stack:
 - Frontend: HTML, CSS, JS
 - Backend: Node.js, Express.js  
 - Database: MySQL  
+
+Content:
+HTML folder contains all the html files.
+Views folder contains all the CSS,js and images.
