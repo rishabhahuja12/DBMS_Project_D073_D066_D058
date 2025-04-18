@@ -2,7 +2,7 @@
 
 DBMS Project:
 
-Overview
+Overview:
 This project is a simple Database Management System built using Node.js, MySQL, HTML, and CSS. It allows user perform login/ signup actions and fill uo a registration form while having all the entries in the backend.
 
 Team Members:
@@ -10,7 +10,7 @@ Team Members:
 - Priyal Rathore (D066)  
 - Pal Rathore (D058)  
 
-Tech Stack
+Tech Stack:
 - Frontend: HTML, CSS  
 - Backend: Node.js, Express.js  
 - Database: MySQL  
