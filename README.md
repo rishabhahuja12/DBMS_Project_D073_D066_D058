@@ -11,6 +11,6 @@ Team Members:
 - Pal Rathore (D058)  
 
 Tech Stack:
-- Frontend: HTML, CSS , JS
+- Frontend: HTML, CSS, JS
 - Backend: Node.js, Express.js  
 - Database: MySQL  
