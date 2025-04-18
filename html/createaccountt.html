@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DocCare - Login/Signup</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+    header {
+      position: relative;
+      transition: transform 0.3s ease-in-out; /* Smooth transition for hiding header */
+    }
+    .header-hidden {
+      transform: translateY(-100%); /* Moves header out of view when scrolling */
+    }
+    .top-bar {
+      background: linear-gradient(to left, #b1b4b6, #7ea5cb);
+      padding: 6px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+    }
+    .contact-info {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    .social-icons {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+    }
+    .social-icons a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .social-icons img {
+      width: 24px;
+      height: 24px;
+      transition: transform 0.2s ease;
+      opacity: 0.8;
+    }
+    .social-icons img:hover {
+      transform: scale(1.1);
+      opacity: 1;
+    }
+
+    /* Navigation Bar */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      backdrop-filter: blur(5px);
+      width: 100%;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5px 0;
+      max-height: 80px;
+    }
+
+    .logo img {
+      width: 275px;
+      height: auto;
+      transform: translateY(-10px);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 40px;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav ul li a {
+      color: #333;
+      font-weight: 600;
+      font-size: 18px;
+      transition: color 0.3s;
+      text-decoration: none; /* optional, if needed */
+    }
+
+    nav ul li a:hover {
+      color: #1e3c72;
+    }
+
+    .auth {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .auth a {
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-weight: 600;
+      text-decoration: none; /* optional, if needed */
+    }
+
+    .login {
+      background-color: transparent;
+      border: 2px solid #1e3c72;
+      color: #1e3c72;
+    }
+
+    .signup {
+      background-color: #1e3c72;
+      color: #fff;
+    }
+
+    .auth img {
+      width: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    /* Dropdown Menu for Profile Icon */
+    .profile-container {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-menu {
+      display: none; /* Hidden by default */
+      position: absolute;
+      right: 0;
+      background-color: #fff;
+      min-width: 150px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      border-radius: 5px;
+      z-index: 200;
+    }
+
+    .dropdown-menu a {
+      display: block;
+      padding: 10px 15px;
+      color: #333;
+      font-size: 14px;
+      border-bottom: 1px solid #ddd;
+      text-decoration: none; /* optional */
+    }
+
+    .dropdown-menu a:hover {
+      background-color: #f1f1f1;
+    }
+
+    .dropdown-menu a:last-child {
+      border-bottom: none;
+    }
+
+    /* Body / Page Layout */
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #c4c2d2 0%, #aca9c3 100%);
+      font-family: 'Arial', sans-serif;
+    }
+
+    /* Center the main container content below the nav */
+    .page-content {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;  /* horizontally center */
+      align-items: center;      /* vertically center */
+      padding: 20px;
+    }
+
+    .main-container {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      width: 1400px;
+      max-width: 95%;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .main-container:hover {
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+      transform: translateY(-5px);
+    }
+
+    .content-wrapper {
+      display: flex;
+      gap: 30px;
+      position: relative;
+    }
+
+    .image-section {
+      flex: 1.2;
+      position: relative;
+      overflow: hidden;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .image-section:hover {
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+      transform: scale(1.02);
+    }
+
+    .image-section img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .form-container {
+      flex: 0.8;
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .form-container:hover {
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+      transform: translateY(-5px);
+    }
+
+    .form-header {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .form-header h1 {
+      color: #6c63ff;
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+
+    .form-header p {
+      color: #666;
+      font-size: 1.1em;
+    }
+
+    .toggle-forms {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 25px;
+    }
+
+    .toggle-btn {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      background: #f5f5f5;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      color: #666;
+      transition: all 0.3s ease;
+    }
+
+    .toggle-btn.active {
+      background: #6c63ff;
+      color: white;
+    }
+
+    .toggle-btn:hover:not(.active) {
+      background: #e5e5e5;
+      transform: translateY(-2px);
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #333;
+      font-weight: 500;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #eee;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    .input-group input:focus {
+      border-color: #6c63ff;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.1);
+    }
+
+    .input-group input:hover {
+      border-color: #d0d0d0;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 12px;
+      background: #6c63ff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+    }
+
+    .submit-btn:hover {
+      background: #7b77c8;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(108, 99, 255, 0.3);
+    }
+
+    .social-login {
+      margin-top: 25px;
+      text-align: center;
+    }
+
+    .social-login p {
+      color: #666;
+      margin-bottom: 15px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .social-login p::before,
+    .social-login p::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: #ddd;
+    }
+
+    .social-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .social-btn {
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      display: block;
+    }
+
+    .social-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .social-btn img {
+      height: 40px;
+      width: auto;
+    }
+
+    .social-btn:hover {
+      background: #f8f8f8;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    #signup-form {
+      display: none;
+    }
+
+    @media (max-width: 968px) {
+      .content-wrapper {
+        flex-direction: column;
+      }
+      .image-section {
+        height: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="top-bar">
+      <div class="contact-info">
+        <span>📞 0731-123456</span>
+        <span><a href="mailto:skinfluence@gmail.com">✉️ skinfluence@gmail.com</a></span>
+        <span>🕐 12 am to 8 pm</span>
+      </div>
+      <div class="social-icons">
+        <a href="https://www.facebook.com" target="_blank"><img src="/views/facebook.png" alt="Facebook"></a>
+        <a href="https://www.instagram.com" target="_blank"><img src="/views/instagram.png" alt="Instagram"></a>
+        <a href="https://www.whatsapp.com" target="_blank"><img src="/views/whatsapp.png" alt="WhatsApp"></a>
+        <a href="https://www.youtube.com" target="_blank"><img src="/views/youtube.png" alt="YouTube"></a>
+      </div>
+    </div>
+  </header>
+
+  <nav>
+    <div class="logo">
+      <a href="home page final 19 feb.html"><img src="/views/skinfluence_logo-removebg-preview.png" alt="Skinfluence Logo"></a>
+    </div>
+    <ul>
+      <li><a href="#">About Us</a></li>
+      <li><a href="#">Bookings</a></li>
+      <li><a href="#">Explore</a></li>
+      <li><a href="#">Contact Us</a></li>
+    </ul>
+    <div class="auth">
+      <a href="#" class="login">Login</a>
+      <a href="#" class="signup">Sign Up</a>
+      <div class="profile-container">
+        <img src="/views/profile icon.png" alt="Profile Icon" id="profileIcon">
+        <div class="dropdown-menu" id="dropdownMenu">
+          <a href="#">My Account</a>
+          <a href="#">My Appointments</a>
+          <a href="#">Help</a>
+          <a href="#">Logout</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-content">
+    <div class="main-container">
+      <div class="content-wrapper">
+        <div class="image-section">
+          <img src="/views/login.jpg" alt="Medical illustration" width="100">
+        </div>
+        <div class="form-container">
+          <div class="login-container">
+            <div class="form-section">
+              <div class="form-header">
+                <h1>Skinfluence</h1>
+                <p>Your Skin, Our Priority</p>
+              </div>
+
+              <div class="toggle-forms">
+                <button class="toggle-btn active" onclick="toggleForm('login')">Login</button>
+                <button class="toggle-btn" onclick="toggleForm('signup')">Sign Up</button>
+              </div>
+
+              <!-- LOGIN FORM -->
+              <form id="login-form" action="/login" method="post">
+                <div class="input-group">
+                  <label for="login-email">Email</label>
+                  <input type="email" id="login-email" name="login-email" required>
+                </div>
+                <div class="input-group">
+                  <label for="login-password">Password</label>
+                  <input type="password" id="login-password" name="login-password" required>
+                </div>
+                <button type="submit" class="submit-btn">Login</button>
+
+                <div class="social-login">
+                  <p>Or continue with</p>
+                  <div class="social-buttons">
+                    <button type="button" class="social-btn" onclick="loginWithGoogle()">
+                      <img src="/views/google login.svg" alt="Sign in with Google"/>
+                    </button>
+                    <button type="button" class="social-btn" onclick="loginWithFacebook()">
+                      <img src="/views/fb1.png" alt="Sign in with Facebook" />
+                    </button>
+                  </div>
+                </div>
+              </form>
+
+              <!-- SIGNUP FORM -->
+              <form id="signup-form" action="/register" method="post" style="display:none;">
+                <div class="input-group">
+                  <label for="signup-name">Full Name</label>
+                  <input type="text" id="signup-name" name="signup-name" required>
+                </div>
+                <div class="input-group">
+                  <label for="signup-email">Email</label>
+                  <input type="email" id="signup-email" name="signup-email" required>
+                </div>
+                <div class="input-group">
+                  <label for="signup-password">Password</label>
+                  <input type="password" id="signup-password" name="signup-password" required>
+                </div>
+                <div class="input-group">
+                  <label for="signup-confirm">Confirm Password</label>
+                  <input type="password" id="signup-confirm" name="signup-confirm" required>
+                </div>
+                <button type="submit" class="submit-btn">Sign Up</button>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleForm(formType) {
+      const loginForm = document.getElementById('login-form');
+      const signupForm = document.getElementById('signup-form');
+      const buttons = document.querySelectorAll('.toggle-btn');
+
+      if (formType === 'login') {
+        loginForm.style.display = 'block';
+        signupForm.style.display = 'none';
+        buttons[0].classList.add('active');
+        buttons[1].classList.remove('active');
+      } else {
+        loginForm.style.display = 'none';
+        signupForm.style.display = 'block';
+        buttons[0].classList.remove('active');
+        buttons[1].classList.add('active');
+      }
+    }
+
+    // Profile Icon Dropdown Toggle
+    document.getElementById('profileIcon').addEventListener('click', function(event) {
+      event.stopPropagation();
+      const dropdown = document.getElementById('dropdownMenu');
+      dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    });
+    document.addEventListener('click', () => {
+      const dropdown = document.getElementById('dropdownMenu');
+      dropdown.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
